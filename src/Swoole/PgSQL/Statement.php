@@ -54,11 +54,9 @@ final class Statement implements StatementInterface
      * @param mixed      $value
      * @param int        $type
      */
-    public function bindValue($param, $value, $type = ParameterType::STRING) : bool
+    public function bindValue($param, $value, $type = ParameterType::STRING) : void
     {
         $this->params[$param] = $this->escapeValue($value, $type);
-
-        return true;
     }
 
     /**
@@ -109,7 +107,7 @@ final class Statement implements StatementInterface
         return (string) $this->connection->error;
     }
 
-    private function escapeValue(mixed $value, int $type = ParameterType::STRING) : ?string
+    private function escapeValue(mixed $value, ParameterType $type = ParameterType::STRING) : ?string
     {
         if ($value !== null && (is_bool($value) || $type === ParameterType::BOOLEAN)) {
             return $value ? 'TRUE' : 'FALSE';

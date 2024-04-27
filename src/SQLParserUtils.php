@@ -152,10 +152,6 @@ class SQLParserUtils
         foreach ($types as $name => $type) {
             ++$bindIndex;
 
-            if ($type !== Connection::PARAM_INT_ARRAY && $type !== Connection::PARAM_STR_ARRAY) {
-                continue;
-            }
-
             if ($isPositional) {
                 $name = $bindIndex;
             }
@@ -195,7 +191,7 @@ class SQLParserUtils
                     $count ?
                         // array needles are at {@link \Doctrine\DBAL\ParameterType} constants
                         // + {@link \Doctrine\DBAL\Connection::ARRAY_PARAM_OFFSET}
-                        array_fill(0, $count, $types[$needle] - Connection::ARRAY_PARAM_OFFSET) :
+                        array_fill(0, $count, $types[$needle]) :
                         [],
                     array_slice($types, $needle + 1)
                 );
@@ -235,7 +231,7 @@ class SQLParserUtils
 
             foreach ($value as $val) {
                 $paramsOrd[] = $val;
-                $typesOrd[]  = static::extractParam($paramName, $types, false) - Connection::ARRAY_PARAM_OFFSET;
+                $typesOrd[]  = static::extractParam($paramName, $types, false);
             }
 
             $pos         += $queryOffset;

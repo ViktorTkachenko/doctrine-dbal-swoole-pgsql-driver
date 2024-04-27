@@ -135,34 +135,31 @@ final class Connection implements ConnectionInterface
     /**
      * {@inheritdoc}
      */
-    public function beginTransaction() : bool
+    public function beginTransaction() : void
     {
         PostgresqlUtil::isStatementAvailable() ? $this->getNativeConnection()->query('START TRANSACTION')->execute() :
             $this->getNativeConnection()->query('START TRANSACTION');
         // TBD - check result
-        return true;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function commit() : bool
+    public function commit() : void
     {
         PostgresqlUtil::isStatementAvailable() ? $this->getNativeConnection()->query('COMMIT')->execute() :
             $this->getNativeConnection()->query('COMMIT');
         // TBD - check result
-        return true;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rollBack() : bool
+    public function rollBack() : void
     {
         PostgresqlUtil::isStatementAvailable() ? $this->getNativeConnection()->query('ROLLBACK')->execute() :
             $this->getNativeConnection()->query('ROLLBACK');
         // TBD - check result
-        return true;
     }
 
     public function errorCode() : int
@@ -308,5 +305,10 @@ final class Connection implements ConnectionInterface
             //    "Connection ping failed. Trying reconnect (attempt $attempt). Reason: $errCode"
             //);
         }
+    }
+
+    public function getServerVersion(): string
+    {
+        return (string) $this->getNativeConnection()->getServerVersion();
     }
 }

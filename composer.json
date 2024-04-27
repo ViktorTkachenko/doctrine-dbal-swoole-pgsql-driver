@@ -17,13 +17,13 @@
     "require": {
         "php": "^8.2",
         "beberlei/assert": "^3.3",
-        "doctrine/dbal": "^3.6"
+        "doctrine/dbal": "^4.0"
     },
     "require-dev": {
         "openswoole/ide-helper": "dev-master",
         "opsway/psr12-strict-coding-standard": "^1.0",
         "vimeo/psalm": "^5.00",
-        "weirdan/doctrine-psalm-plugin": "^2.0"
+        "weirdan/doctrine-psalm-plugin": "dev-develop"
     },
     "scripts": {
         "cs-check": "phpcs",
@@ -33,5 +33,11 @@
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/ViktorTkachenko/psalm-plugin-doctrine"
+        }
+    ]
 }
